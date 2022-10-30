@@ -7,7 +7,7 @@
     "github-action"
   ],
   "author": "Lan-Phan",
-  "license": "ISC",
+  "license": "MIT",
   "description": "An action for commit's email pattern",
   "scripts": {
     "build": "ncc build src/index.ts --minify --out dist",
@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^5.0.0"
   }
 }
