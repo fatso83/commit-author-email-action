@@ -6,8 +6,8 @@
     "action",
     "github-action"
   ],
-  "author": "Lan-Phan",
-  "license": "MIT",
+  "author": "semcelik",
+  "license": "ISC",
   "description": "An action for commit's email pattern",
   "scripts": {
     "build": "ncc build src/index.ts --minify --out dist",
