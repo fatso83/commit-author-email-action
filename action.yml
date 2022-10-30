@@ -1,8 +1,11 @@
-name: 'Check Commit Author'
-description: 'Checks the email of the commit author'
+name: 'Check Commit Author and Committer'
+description: 'Checks the email of the commit author and committer'
 inputs:
-  email_domain:
-    description: 'domain of the email'
+  author_email_domain:
+    description: 'domain of the author\'s emails'
+    required: true
+  committer_email_domain:
+    description: 'domain of the committer\'s emails'
     required: true
   github_token:
     description: 'GitHub token'
@@ -16,5 +19,5 @@ outputs:
     description: 'returns to result whether true or false'
 
 runs:
-  using: node12
+  using: node16
   main: dist/index.js

@@ -1,12 +1,12 @@
 {
-  "name": "@semcelik/commit-author-action",
+  "name": "@lan-phan/commit-author-committer-action",
   "version": "1.0.0",
   "main": "src/index.ts",
   "keywords": [
     "action",
     "github-action"
   ],
-  "author": "semcelik",
+  "author": "Lan-Phan",
   "license": "ISC",
   "description": "An action for commit's email pattern",
   "scripts": {

@@ -4,4 +4,9 @@ export type TCommit = {
     email: string;
     date: string;
   };
+  committer: {
+    name: string;
+    email: string;
+    date: string;
+  };
 };

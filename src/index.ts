@@ -7,23 +7,30 @@ import getCommitEmails from 'helpers/getCommitEmails';
 import filterInvalidEmails from 'helpers/filterInvalidEmails';
 
 async function checkEmail(): Promise<void> {
-  const emailDomainInput = getInput(INPUT.EMAIL_DOMAIN, { required: true });
-  info(`Email domain: ${emailDomainInput}`);
+  const authorEmailDomainInput = getInput(INPUT.AUTHOR_EMAIL_DOMAIN, { required: true });
+  const committerEmailDomainInput = getInput(INPUT.COMMITTER_EMAIL_DOMAIN, { required: true });
+  info(`Author's email domain: ${authorEmailDomainInput}`);
+  info(`Committer's email domain: ${committerEmailDomainInput}`);
 
   const commitEmails = await getCommitEmails(GITHUB_EVENT);
 
   if (!commitEmails) {
     return warning('Could not found emails');
   }
-  info(`Emails to check: ${commitEmails}`);
+  info(`Emails to check, author emails: ${commitEmails[0]}`);
+  info(`Emails to check, committer emails: ${commitEmails[1]}`);
 
-  const invalidEmails = filterInvalidEmails(emailDomainInput, commitEmails);
+  const invalidAuthorEmails = filterInvalidEmails(authorEmailDomainInput, commitEmails[0]);
+  const invalidCommitterEmails = filterInvalidEmails(committerEmailDomainInput, commitEmails[1]);
 
-  handleSetOutput(invalidEmails, emailDomainInput);
+  handleSetOutput(
+    [invalidAuthorEmails, invalidCommitterEmails],
+    [authorEmailDomainInput, committerEmailDomainInput]
+  );
 }
 
-function handleSetOutput(invalidEmails: string[], emailDomainInput: string): void {
-  const isValid = invalidEmails.length === 0;
+function handleSetOutput(invalidEmails: string[][], emailDomainInput: string[]): void {
+  const isValid = invalidEmails[0].length === 0 && invalidEmails[1].length === 0;
 
   setOutput(OUTPUT.IS_VALID, isValid);
 
@@ -32,7 +39,7 @@ function handleSetOutput(invalidEmails: string[], emailDomainInput: string): voi
   }
 
   const errorOnFail = getInput(INPUT.ERROR_ON_FAIL);
-  const errorMessage = `Invalid emails found. Invalid emails: ${invalidEmails}. It should be end with ${emailDomainInput}`;
+  const errorMessage = `Invalid emails found. Invalid author emails: ${invalidEmails[0]}, it should be end with ${emailDomainInput[0]}. Invalid committer emails: ${invalidEmails[1]}, it should be end with ${emailDomainInput[1]}`;
 
   if (errorOnFail === FALSE) {
     warning(errorMessage);
