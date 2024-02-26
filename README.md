@@ -40,8 +40,9 @@ Checks commit's email with a given email domain.
 
 ```yaml
 uses: Lan-Phan/commit-author-email-action@master
-with:
-  email_domain: 'gmail.com'
+with: 
+  author_email_domain: 'gmail.com,outlook.com'
+  committer_email_domain: 'microsoft.com,live.com'
   github_token: ${{ secrets.GITHUB_TOKEN }}
   error_on_fail: 'false'
 ```
