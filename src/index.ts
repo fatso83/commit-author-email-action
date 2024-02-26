@@ -50,8 +50,8 @@ function handleSetOutput(
   const errorMessage = `
       E-mail addresses with invalid domains found.
 
-      Invalid author emails: ${invalidAuthorEmails} 
-      Invalid committer emails: ${invalidCommitterEmails}
+      Invalid author email: ${invalidAuthorEmails} 
+      Invalid committer email: ${invalidCommitterEmails}
 
       Valid domains are: ${emailDomainInput[0]}.
       Tip: to set a new email, try running \`git config --add user.email Jane.Doe@your-domain.com\``;
