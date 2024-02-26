@@ -10,7 +10,8 @@ Checks commit's email with a given email domain.
 
 ### `email_domain`
 
-**Required** A list of valid domains to check emails against. Examples: 
+**Required** A list of valid domains to check emails against. Examples:
+
 - `"gmail.com"`
 - `"@gmail.com"`
 - `"foobar.com, gmail.com, outlook.com"`
@@ -54,6 +55,6 @@ with:
 ### On Fail
 
 - `error_on_fail` is true
-![image](https://user-images.githubusercontent.com/25296714/101996282-1951d180-3ce2-11eb-8cef-e2c362ae7eb4.png)
+  ![image](https://user-images.githubusercontent.com/25296714/101996282-1951d180-3ce2-11eb-8cef-e2c362ae7eb4.png)
 - `error_on_fail` is false
-![image](https://user-images.githubusercontent.com/25296714/101996335-9ed58180-3ce2-11eb-8335-cc1cccb039e1.png)
+  ![image](https://user-images.githubusercontent.com/25296714/101996335-9ed58180-3ce2-11eb-8335-cc1cccb039e1.png)
