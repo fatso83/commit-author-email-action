@@ -23,14 +23,22 @@ async function checkEmail(): Promise<void> {
   const invalidAuthorEmails = filterInvalidEmails(authorEmailDomainInput, commitEmails[0]);
   const invalidCommitterEmails = filterInvalidEmails(committerEmailDomainInput, commitEmails[1]);
 
-  handleSetOutput(
-    [invalidAuthorEmails, invalidCommitterEmails],
-    [authorEmailDomainInput, committerEmailDomainInput]
-  );
+  handleSetOutput({ invalidAuthorEmails, invalidCommitterEmails }, [
+    authorEmailDomainInput,
+    committerEmailDomainInput,
+  ]);
 }
 
-function handleSetOutput(invalidEmails: string[][], emailDomainInput: string[]): void {
-  const isValid = invalidEmails[0].length === 0 && invalidEmails[1].length === 0;
+type InvalidEmails = {
+  invalidAuthorEmails: string[];
+  invalidCommitterEmails: string[];
+};
+
+function handleSetOutput(
+  { invalidAuthorEmails, invalidCommitterEmails }: InvalidEmails,
+  emailDomainInput: string[]
+): void {
+  const isValid = invalidAuthorEmails.length === 0 && invalidCommitterEmails.length === 0;
 
   setOutput(OUTPUT.IS_VALID, isValid);
 
@@ -39,7 +47,11 @@ function handleSetOutput(invalidEmails: string[][], emailDomainInput: string[]):
   }
 
   const errorOnFail = getInput(INPUT.ERROR_ON_FAIL);
-  const errorMessage = `Invalid emails found. Invalid author emails: ${invalidEmails[0]}, it should be end with ${emailDomainInput[0]}. Invalid committer emails: ${invalidEmails[1]}, it should be end with ${emailDomainInput[1]}`;
+  const errorMessage = `
+      E-mail addresses with invalid domains found.
+      Invalid author emails: ${invalidAuthorEmails} 
+      Invalid committer emails: ${invalidCommitterEmails}
+      Valid domains are: ${emailDomainInput[0]}`;
 
   if (errorOnFail === FALSE) {
     warning(errorMessage);
