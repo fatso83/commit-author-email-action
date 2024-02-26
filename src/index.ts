@@ -1,10 +1,10 @@
-import { getInput, setOutput, setFailed, info, warning } from '@actions/core';
-
 import { INPUT, OUTPUT } from 'constants/io';
-import { GITHUB_EVENT } from 'constants/env';
+import { getInput, info, setFailed, setOutput, warning } from '@actions/core';
+
 import { FALSE } from 'constants/boolean';
-import getCommitEmails from 'helpers/getCommitEmails';
+import { GITHUB_EVENT } from 'constants/env';
 import filterInvalidEmails from 'helpers/filterInvalidEmails';
+import getCommitEmails from 'helpers/getCommitEmails';
 
 async function checkEmail(): Promise<void> {
   const authorEmailDomainInput = getInput(INPUT.AUTHOR_EMAIL_DOMAIN, { required: true });
@@ -15,7 +15,7 @@ async function checkEmail(): Promise<void> {
   const commitEmails = await getCommitEmails(GITHUB_EVENT);
 
   if (!commitEmails) {
-    return warning('Could not found emails');
+    return warning('Could not find any emails');
   }
   info(`Emails to check, author emails: ${commitEmails[0]}`);
   info(`Emails to check, committer emails: ${commitEmails[1]}`);
